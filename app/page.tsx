@@ -602,7 +602,6 @@ export default function Home() {
 }
 
 
-type PipelineStatus = "done" | "running" | "pending";
 
 type PipelineStatus = "done" | "running" | "pending";
 
