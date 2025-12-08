@@ -316,11 +316,9 @@ export default function Home() {
               </div>
 
               <p className="mt-3 text-[11px] text-slate-400">
-                Powered by{" "}
-                <span className="font-semibold text-sky-300">Flume</span> — each deploy
-                writes a fresh <code className="bg-slate-800/60 px-1 rounded">meta/meta.json</code>{" "}
-                to S3, and this card reads it at runtime so you&apos;re seeing the real
-                state of the last deployment.
+                Powered by <span className="font-semibold text-sky-300">Flume</span> — each
+               deployment uses Flume’s Terraform integration to provision cloud resources and
+               expose them seamlessly to downstream services in the workflow.
               </p>
             </div>
           </div>       
@@ -730,7 +728,7 @@ function DeploymentMetaCard({
           <p className="mt-3 text-[10px] leading-relaxed text-slate-500">
             Each deploy writes a fresh{" "}
             <code className="rounded bg-slate-800/80 px-1">meta/meta.json</code>{" "}
-            to S3, and this card reads it at runtime — so what you see here is the
+            to S3, and this card reads it at runtime. What you see here is the
             actual state of the last deployment, not a hard-coded demo.
           </p>
         </>
