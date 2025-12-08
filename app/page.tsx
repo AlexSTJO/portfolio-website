@@ -5,54 +5,36 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-<Image
-  src="/images/me.webp"
-  alt="Alex standing near ancient ruins in Samothrace"
-  width={800}
-  height={1200}
-  className="rounded-3xl border border-slate-700/70 shadow-md shadow-sky-900/30 object-cover"
-/>
-
-type DeployStatus = {
-  pipeline: string;
-  status: "healthy" | "degraded" | "failing";
-  lastRun: string;
-  branch: string;
-  region: string;
-  commit: string;
-  steps: {
-    checkout: "done" | "running" | "pending";
-    build: "done" | "running" | "pending";
-    deploy: "done" | "running" | "pending";
-  };
+type MetaStatus = {
+  build_status: string;
+  infra_status: string;
+  pull_status: string;
+  upload_status: string;
 };
 
-function useDeployStatus() {
-  const [status, setStatus] = useState<DeployStatus | null>(null);
+function useMetaStatus() {
+  const [meta, setMeta] = useState<MetaStatus | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
-    async function fetchStatus() {
+    async function fetchMeta() {
       try {
-        const res = await fetch("/meta/portfolio-status.json", {
-          cache: "no-store",
-        });
-        if (!res.ok) throw new Error("Bad response");
-        const data = (await res.json()) as DeployStatus;
-        setStatus(data);
-      } catch (e) {
-        setError(true);
+        const res = await fetch("/meta/meta.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("bad response");
+        const data = (await res.json()) as MetaStatus;
+        setMeta(data);
+      } catch {
+        setMeta(null);
       } finally {
         setLoading(false);
       }
     }
-
-    fetchStatus();
+    fetchMeta();
   }, []);
 
-  return { status, loading, error };
+  return { meta, loading };
 }
+
 const projects = [
   {
     name: "Flume",
@@ -140,7 +122,15 @@ const skills = [
 
 export default function Home() {
 
-  const { status: deployStatus, loading: deployLoading } = useDeployStatus();
+  const { meta, loading: metaLoading } = useMetaStatus();
+  const health =
+  !meta
+    ? "unknown"
+    : meta.build_status === "true" && meta.upload_status === "true"
+    ? "healthy"
+    : meta.build_status === "true"
+    ? "degraded"
+    : "failing";
 
   return (
     <main className="relative min-h-screen bg-slate-950 text-slate-100">
@@ -240,104 +230,129 @@ export default function Home() {
 
             <div className="relative rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-2xl shadow-sky-500/20 backdrop-blur-xl">
               <div className="mb-4 flex items-center justify-between text-xs text-slate-400">
-                <span className="flex items-center gap-2 font-medium text-slate-200">
-                  Pipeline · {deployStatus?.pipeline ?? "portfolio-deploy"}
+                <span className="flex items-center gap-2 font-semibold text-slate-100">
+                <span>Pipeline · {meta?.pipeline ?? "portfolio-deploy"}</span>
                   <span
-                    className="rounded-full bg-sky-500/10 px-2 py-0.5 text-[10px] text-sky-300"
-                    title="This Flume pipeline automatically rebuilds and deploys this portfolio."
+                    className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-300 border border-emerald-500/20 shadow-sm shadow-emerald-500/20"
+                    title="This site redeploys itself through a custom workflow engine that runs Terraform plans, Next.js builds, and S3/CloudFront sync."
                   >
-                    Deploys this site
-                  </span>
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
+                    Deployed via Flume Engine
+                </span>
                 </span>
 
                 <span
                   className={`flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] ${
-                    (deployStatus?.status ?? "healthy") === "healthy"
+                    health === "healthy"
                       ? "bg-emerald-500/10 text-emerald-300"
-                      : (deployStatus?.status ?? "healthy") === "degraded"
+                      : health === "degraded"
                       ? "bg-amber-500/10 text-amber-300"
-                      : "bg-rose-500/10 text-rose-300"
+                      : health === "failing"
+                      ? "bg-rose-500/10 text-rose-300"
+                      : "bg-slate-700/60 text-slate-200"
                   }`}
                 >
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
-                      (deployStatus?.status ?? "healthy") === "healthy"
+                      health === "healthy"
                         ? "bg-emerald-300"
-                        : (deployStatus?.status ?? "healthy") === "degraded"
+                        : health === "degraded"
                         ? "bg-amber-300"
-                        : "bg-rose-300"
+                        : health === "failing"
+                        ? "bg-rose-300"
+                        : "bg-slate-300"
                     }`}
                   />
-                  {deployLoading
+                  {metaLoading
                     ? "Checking…"
-                    : deployStatus?.status === "healthy"
+                    : health === "healthy"
                     ? "Healthy"
-                    : deployStatus?.status === "degraded"
+                    : health === "degraded"
                     ? "Degraded"
-                    : deployStatus?.status === "failing"
+                    : health === "failing"
                     ? "Failing"
                     : "Unknown"}
                 </span>
               </div>
 
-              {/* Node graph */}
+              {/* Node graph driven by meta.json */}
               <div className="relative grid grid-cols-3 gap-4">
                 <PipelineNode
                   title="checkout"
                   subtitle="Git clone"
-                  status={deployStatus?.steps.checkout ?? "done"}
+                  status={
+                    meta?.pull_status === "true"
+                      ? "done"
+                      : metaLoading
+                      ? "running"
+                      : "pending"
+                  }
                 />
                 <PipelineNode
                   title="build"
-                  subtitle="Next export"
-                  status={deployStatus?.steps.build ?? "running"}
+                  subtitle="Next static build"
+                  status={
+                    meta?.build_status === "true"
+                      ? "done"
+                      : metaLoading
+                      ? "running"
+                      : "pending"
+                  }
                 />
                 <PipelineNode
                   title="deploy"
                   subtitle="S3 + CloudFront"
-                  status={deployStatus?.steps.deploy ?? "pending"}
+                  status={
+                    meta?.upload_status === "true"
+                      ? "done"
+                      : metaLoading
+                      ? "running"
+                      : "pending"
+                  }
                 />
               </div>
-
 
               <div className="mt-5 grid grid-cols-2 gap-3 text-[11px] text-slate-300">
                 <StatusCard label="Next.js" value="Static export" accent="sky" />
                 <StatusCard
                   label="Flume task"
-                  value={deployStatus?.pipeline ?? "portfolio-deploy"}
+                  value="portfolio-deploy"
                   accent="purple"
                 />
                 <StatusCard
                   label="Region"
-                  value={deployStatus?.region ?? "us-east-1"}
+                  value="us-east-1"
                   accent="emerald"
                 />
                 <StatusCard
                   label="Last deploy"
                   value={
-                    deployStatus?.lastRun
-                      ? new Date(deployStatus.lastRun).toLocaleString(undefined, {
+                    meta?.infra_status
+                      ? new Date(meta.infra_status).toLocaleString(undefined, {
                           dateStyle: "medium",
                           timeStyle: "short",
                         })
-                      : deployLoading
+                      : metaLoading
                       ? "Checking…"
-                      : "Not yet deployed"
+                      : "Unknown"
                   }
                   accent="slate"
                 />
               </div>
 
+              <div className="mt-4">
+                <DeploymentMetaCard meta={meta} loading={metaLoading} />
+              </div>
+
               <p className="mt-3 text-[11px] text-slate-400">
                 Powered by{" "}
-                <span className="font-semibold text-sky-300">
-                  Flume
-                </span>{" "}
-                — this pipeline checks out the repo, builds the Next.js app, and deploys this
-                portfolio to S3/CloudFront.
+                <span className="font-semibold text-sky-300">Flume</span> — each deploy
+                writes a fresh <code className="bg-slate-800/60 px-1 rounded">meta/meta.json</code>{" "}
+                to S3, and this card reads it at runtime so you&apos;re seeing the real
+                state of the last deployment.
               </p>
             </div>
-          </div>
+          </div>       
         </section>
 
         {/* Projects */}
@@ -601,8 +616,6 @@ export default function Home() {
   );
 }
 
-
-
 type PipelineStatus = "done" | "running" | "pending";
 
 function PipelineNode({
@@ -629,6 +642,7 @@ function PipelineNode({
     </div>
   );
 }
+
 
 function StatusCard({
   label,
@@ -657,3 +671,85 @@ function StatusCard({
   );
 }
 
+
+
+function DeploymentMetaCard({
+  meta,
+  loading,
+}: {
+  meta: MetaStatus | null;
+  loading: boolean;
+}) {
+  return (
+    <div className="rounded-2xl border border-slate-700/80 bg-slate-900/90 px-3 py-3 text-[11px] shadow-md shadow-sky-900/30">
+      
+      {/* TITLE */}
+      <p className="flex items-center gap-1.5 uppercase tracking-wide text-slate-400">
+        <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+        Deployment Meta
+      </p>
+
+      {/* LOADING */}
+      {loading ? (
+        <p className="mt-2 text-[11px] text-slate-500">Loading metadata…</p>
+      ) : !meta ? (
+        <p className="mt-2 text-[11px] text-slate-500">
+          Metadata unavailable — pipeline may not have written meta.json yet.
+        </p>
+      ) : (
+        <>
+          {/* STATUS CHIPS */}
+          <div className="mt-2 flex flex-wrap gap-2">
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                meta.build_status === "true"
+                  ? "bg-emerald-500/10 text-emerald-300"
+                  : "bg-rose-500/10 text-rose-300"
+              }`}
+            >
+              build: {meta.build_status === "true" ? "ok" : "failed"}
+            </span>
+
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                meta.pull_status === "true"
+                  ? "bg-emerald-500/10 text-emerald-300"
+                  : "bg-rose-500/10 text-rose-300"
+              }`}
+            >
+              git: {meta.pull_status === "true" ? "synced" : "error"}
+            </span>
+
+            <span
+              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                meta.upload_status === "true"
+                  ? "bg-emerald-500/10 text-emerald-300"
+                  : "bg-rose-500/10 text-rose-300"
+              }`}
+            >
+              s3: {meta.upload_status === "true" ? "uploaded" : "error"}
+            </span>
+          </div>
+
+          {/* LAST EVENT */}
+          <div className="mt-3 flex justify-between text-[11px]">
+            <span className="text-slate-400">Last infra event</span>
+            <span className="font-medium text-slate-100 text-right">
+              {meta.infra_status || "Unknown"}
+            </span>
+          </div>
+
+          {/* FOOTNOTE */}
+          <p className="mt-2 text-[10px] leading-relaxed text-slate-500">
+            Live data from{" "}
+            <span className="font-semibold text-sky-300">Flume</span>. Each run
+            writes{" "}
+            <code className="rounded bg-slate-800/60 px-1">meta/meta.json</code>{" "}
+            to S3 — this UI reads it at runtime to show the true deployment
+            state.
+          </p>
+        </>
+      )}
+    </div>
+  );
+}
