@@ -231,7 +231,7 @@ export default function Home() {
             <div className="relative rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-2xl shadow-sky-500/20 backdrop-blur-xl">
               <div className="mb-4 flex items-center justify-between text-xs text-slate-400">
                 <span className="flex items-center gap-2 font-semibold text-slate-100">
-                <span>Pipeline · {meta?.pipeline ?? "portfolio-deploy"}</span>
+                <span>Pipeline · portfolio-deploy</span>
                   <span
                     className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-300 border border-emerald-500/20 shadow-sm shadow-emerald-500/20"
                     title="This site redeploys itself through a custom workflow engine that runs Terraform plans, Next.js builds, and S3/CloudFront sync."
