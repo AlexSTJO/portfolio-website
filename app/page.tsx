@@ -310,36 +310,7 @@ export default function Home() {
                       : "pending"
                   }
                 />
-              </div>
-
-              <div className="mt-5 grid grid-cols-2 gap-3 text-[11px] text-slate-300">
-                <StatusCard label="Next.js" value="Static export" accent="sky" />
-                <StatusCard
-                  label="Flume task"
-                  value="portfolio-deploy"
-                  accent="purple"
-                />
-                <StatusCard
-                  label="Region"
-                  value="us-east-1"
-                  accent="emerald"
-                />
-                <StatusCard
-                  label="Last deploy"
-                  value={
-                    meta?.infra_status
-                      ? new Date(meta.infra_status).toLocaleString(undefined, {
-                          dateStyle: "medium",
-                          timeStyle: "short",
-                        })
-                      : metaLoading
-                      ? "Checking…"
-                      : "Unknown"
-                  }
-                  accent="slate"
-                />
-              </div>
-
+              </div> 
               <div className="mt-4">
                 <DeploymentMetaCard meta={meta} loading={metaLoading} />
               </div>
