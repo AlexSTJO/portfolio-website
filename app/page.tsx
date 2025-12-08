@@ -651,73 +651,87 @@ function DeploymentMetaCard({
   meta: MetaStatus | null;
   loading: boolean;
 }) {
-  return (
-    <div className="rounded-2xl border border-slate-700/80 bg-slate-900/90 px-3 py-3 text-[11px] shadow-md shadow-sky-900/30">
-      
-      {/* TITLE */}
-      <p className="flex items-center gap-1.5 uppercase tracking-wide text-slate-400">
-        <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
-        Deployment Meta
-      </p>
+  const buildOk = meta?.build_status === "true";
+  const pullOk = meta?.pull_status === "true";
+  const uploadOk = meta?.upload_status === "true";
 
-      {/* LOADING */}
+  return (
+    <div className="mt-5 rounded-3xl border border-slate-700/80 bg-slate-900/80 p-4 text-[11px] text-slate-300 shadow-md shadow-sky-900/40 backdrop-blur-xl">
+      {/* Header */}
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+          <span className="tracking-wide text-[11px] font-semibold uppercase text-slate-200">
+            Deployment meta
+          </span>
+        </div>
+
+        <span className="inline-flex items-center gap-1 rounded-full border border-slate-700/80 bg-slate-900/80 px-2 py-0.5 text-[10px] text-slate-400">
+          Live data from <span className="text-sky-300 font-medium">Flume</span>
+        </span>
+      </div>
+
       {loading ? (
-        <p className="mt-2 text-[11px] text-slate-500">Loading metadata…</p>
+        <p className="text-slate-500 text-[11px]">Fetching latest deploy meta…</p>
       ) : !meta ? (
-        <p className="mt-2 text-[11px] text-slate-500">
-          Metadata unavailable — pipeline may not have written meta.json yet.
+        <p className="text-slate-500 text-[11px]">
+          No metadata found — pipeline may not have written{" "}
+          <code className="rounded bg-slate-800/80 px-1">meta/meta.json</code> yet.
         </p>
       ) : (
         <>
-          {/* STATUS CHIPS */}
-          <div className="mt-2 flex flex-wrap gap-2">
+          {/* Status pills */}
+          <div className="mb-3 flex flex-wrap gap-2">
             <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                meta.build_status === "true"
-                  ? "bg-emerald-500/10 text-emerald-300"
-                  : "bg-rose-500/10 text-rose-300"
+              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                buildOk
+                  ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30"
+                  : "bg-rose-500/10 text-rose-300 border border-rose-500/40"
               }`}
             >
-              build: {meta.build_status === "true" ? "ok" : "failed"}
+              <span className="h-1 w-1 rounded-full bg-current" />
+              build: {buildOk ? "ok" : "failed"}
             </span>
 
             <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                meta.pull_status === "true"
-                  ? "bg-emerald-500/10 text-emerald-300"
-                  : "bg-rose-500/10 text-rose-300"
+              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                pullOk
+                  ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30"
+                  : "bg-rose-500/10 text-rose-300 border border-rose-500/40"
               }`}
             >
-              git: {meta.pull_status === "true" ? "synced" : "error"}
+              <span className="h-1 w-1 rounded-full bg-current" />
+              git: {pullOk ? "synced" : "error"}
             </span>
 
             <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                meta.upload_status === "true"
-                  ? "bg-emerald-500/10 text-emerald-300"
-                  : "bg-rose-500/10 text-rose-300"
+              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                uploadOk
+                  ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30"
+                  : "bg-rose-500/10 text-rose-300 border border-rose-500/40"
               }`}
             >
-              s3: {meta.upload_status === "true" ? "uploaded" : "error"}
+              <span className="h-1 w-1 rounded-full bg-current" />
+              s3: {uploadOk ? "uploaded" : "error"}
             </span>
           </div>
 
-          {/* LAST EVENT */}
-          <div className="mt-3 flex justify-between text-[11px]">
-            <span className="text-slate-400">Last infra event</span>
-            <span className="font-medium text-slate-100 text-right">
+          {/* Last infra event */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/80 px-3 py-2">
+            <p className="text-[10px] uppercase tracking-wide text-slate-500">
+              Last infra event
+            </p>
+            <p className="mt-1 text-[11px] text-slate-100">
               {meta.infra_status || "Unknown"}
-            </span>
+            </p>
           </div>
 
-          {/* FOOTNOTE */}
-          <p className="mt-2 text-[10px] leading-relaxed text-slate-500">
-            Live data from{" "}
-            <span className="font-semibold text-sky-300">Flume</span>. Each run
-            writes{" "}
-            <code className="rounded bg-slate-800/60 px-1">meta/meta.json</code>{" "}
-            to S3 — this UI reads it at runtime to show the true deployment
-            state.
+          {/* Footer explainer */}
+          <p className="mt-3 text-[10px] leading-relaxed text-slate-500">
+            Each deploy writes a fresh{" "}
+            <code className="rounded bg-slate-800/80 px-1">meta/meta.json</code>{" "}
+            to S3, and this card reads it at runtime — so what you see here is the
+            actual state of the last deployment, not a hard-coded demo.
           </p>
         </>
       )}
