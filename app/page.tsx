@@ -1,9 +1,8 @@
 "use client";
-// hello, this website has swag, not a front end dev but with a little deep dive in the docs and some caffeinated AI-powered coding sessions we got something
-// also this is deployed via a cloud workflow orchestrator I created that integrates terraform deployments into a step function like orchestrator
-// cheeky little passion project
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 type MetaStatus = {
   build_status: string;
@@ -166,6 +165,9 @@ export default function Home() {
             <a href="#about" className="hover:text-sky-300">
               About
             </a>
+            <Link href="/blog" className="hover:text-sky-300">
+              Blog
+            </Link>
             <a href="#contact" className="hover:text-sky-300">
               Contact
             </a>
@@ -176,21 +178,20 @@ export default function Home() {
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-slate-700/80 bg-slate-900/70 px-3 py-1 text-xs text-slate-300 shadow-sm shadow-sky-500/10">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              Open to Cloud / Platform / DevOps roles (US/EU)
+              Open to Cloud / Platform / DevOps roles (EU)
             </div>
 
             <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              I build cloud-native automation
+              Cloud Engineer
               <span className="block bg-gradient-to-r from-sky-400 to-purple-400 bg-clip-text text-transparent">
-                that actually ships.
+                Open Source Dev
               </span>
             </h1>
 
             <p className="mt-5 max-w-xl text-balance text-sm leading-relaxed text-slate-300 sm:text-base">
-              Cloud engineer with a focus on workflow engines, infra-as-code,
-              and cost-saving automation. Creator of{" "}
-              <span className="font-semibold text-sky-300">Flume</span>, an
-              infra-aware workflow orchestrator written in Go.
+              I build automation tools and write infrastructure code.
+              Creator of <span className="font-semibold text-sky-300">Flume</span>,
+              a workflow orchestrator written in Go.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -275,8 +276,7 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* Node graph driven by meta.json */}
-              <div className="relative grid grid-cols-3 gap-4">
+                            <div className="relative grid grid-cols-3 gap-4">
                 <PipelineNode
                   title="checkout"
                   subtitle="Git clone"
@@ -317,15 +317,22 @@ export default function Home() {
 
               <p className="mt-3 text-[11px] text-slate-400">
                 Powered by <span className="font-semibold text-sky-300">Flume</span> — each
-               deployment uses Flume’s Terraform integration to provision cloud resources and
-               expose them seamlessly to downstream services in the workflow.
+                deployment uses Flume&apos;s Terraform integration to provision cloud resources and
+                expose them seamlessly to downstream services in the workflow.
               </p>
+
+              <Link
+                href="/pipeline"
+                className="mt-4 inline-flex items-center justify-center gap-2 rounded-full border border-sky-500/50 bg-sky-500/10 px-4 py-2 text-xs font-medium text-sky-300 shadow-lg shadow-sky-500/20 transition hover:bg-sky-500/20 hover:border-sky-400 hover:shadow-sky-500/30"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                View Pipeline YAML
+              </Link>
             </div>
-          </div>       
+          </div>
         </section>
 
-        {/* Projects */}
-        <section id="projects" className="mb-20">
+                <section id="projects" className="mb-20">
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -393,8 +400,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Experience */}
-        <section id="experience" className="mb-20">
+                <section id="experience" className="mb-20">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Experience
           </h2>
@@ -404,8 +410,7 @@ export default function Home() {
           </p>
 
           <div className="mt-8 grid gap-6 md:grid-cols-[0.25fr_minmax(0,1fr)]">
-            {/* Timeline line */}
-            <div className="relative hidden md:block">
+                        <div className="relative hidden md:block">
               <div className="absolute left-1/2 h-full w-px -translate-x-1/2 bg-gradient-to-b from-sky-500/50 via-slate-700/80 to-purple-500/50" />
             </div>
 
@@ -415,8 +420,7 @@ export default function Home() {
                   key={job.company}
                   className="relative overflow-hidden rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-md shadow-sky-900/40 backdrop-blur-xl"
                 >
-                  {/* Dot on line */}
-                  <div className="absolute -left-4 top-6 hidden h-3 w-3 rounded-full border border-sky-300 bg-slate-950 md:block" />
+                                    <div className="absolute -left-4 top-6 hidden h-3 w-3 rounded-full border border-sky-300 bg-slate-950 md:block" />
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
                       <h3 className="text-sm font-semibold text-slate-100 sm:text-base">
@@ -459,8 +463,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* About */}
-        <section id="about" className="mb-20">
+                <section id="about" className="mb-20">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             About
           </h2>
@@ -470,26 +473,21 @@ export default function Home() {
 
           <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] items-start">
   
-            {/* LEFT COLUMN (stacked cards) */}
-            <div className="space-y-6">
+                        <div className="space-y-6">
               
-              {/* About Text */}
-              <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-md shadow-sky-900/40 backdrop-blur-xl">
+                            <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-md shadow-sky-900/40 backdrop-blur-xl">
                 <p className="text-sm text-slate-300">
-                  I'm a cloud engineer and Computer Science graduate with a Math minor who loves
-                  building tools that make infrastructure feel less chaotic. I focus on automation,
-                  infrastructure as code, and developer experience — the glue that turns services
-                  into reliable systems.
+                  I&apos;m a cloud engineer with a CS degree and math minor. I like building tools
+                  that make cloud infrastructure easier to work with. Most of my time goes into
+                  automation, Terraform, and writing code that other engineers won&apos;t hate me for.
                 </p>
                 <p className="mt-3 text-sm text-slate-300">
-                  My favorite stack for infra-heavy work is Go + AWS SDK + Terraform, backed by clear
-                  logging, pipelines, and good ergonomics for other engineers. I also enjoy crafting
-                  clean frontends with Next.js when it helps tell the story of the systems behind them.
+                  Go + AWS + Terraform is my usual stack. I care a lot about good logging and
+                  pipelines that actually work. Sometimes I build frontends too, like this site.
                 </p>
               </div>
 
-              {/* Skills */}
-              <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 p-4 text-sm text-slate-300 shadow-md shadow-sky-900/40 backdrop-blur-xl">
+                            <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 p-4 text-sm text-slate-300 shadow-md shadow-sky-900/40 backdrop-blur-xl">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
                   Skills & tools
                 </h3>
@@ -505,23 +503,20 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Outside of Work */}
-              <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 p-4 text-sm text-slate-300 shadow-md shadow-sky-900/40 backdrop-blur-xl">
+                            <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 p-4 text-sm text-slate-300 shadow-md shadow-sky-900/40 backdrop-blur-xl">
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
                   Outside of work
                 </h3>
                 <p className="mt-2 text-sm text-slate-300">
-                  I like lifting, playing volleyball, and reading history. I'm a
-                  dual U.S.–Greek citizen and I love traveling, especially around the Mediterranean.
-                  I still code for fun in my free time, often building small automation scripts to
-                  make everyday tasks a little easier.
+                  I lift, play volleyball, and read a lot of history. Dual U.S.–Greek citizen,
+                  so I travel around the Mediterranean when I can. I also code for fun, mostly
+                  small scripts to automate random stuff.
                 </p>                
               </div>
 
             </div>
 
-            {/* RIGHT COLUMN (photo) */}
-            <div className="relative flex justify-center">              
+                        <div className="relative flex justify-center">              
                <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-sky-500/20 blur-3xl" />
               <img
                 src="/images/me.webp"
@@ -534,8 +529,7 @@ export default function Home() {
 
         </section>
 
-        {/* Contact / Footer */}
-        <section
+                <section
           id="contact"
           className="mt-auto rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-md shadow-sky-900/40 backdrop-blur-xl"
         >
@@ -655,8 +649,7 @@ function DeploymentMetaCard({
 
   return (
     <div className="mt-5 rounded-3xl border border-slate-700/80 bg-slate-900/80 p-4 text-[11px] text-slate-300 shadow-md shadow-sky-900/40 backdrop-blur-xl">
-      {/* Header */}
-      <div className="mb-3 flex items-center justify-between gap-2">
+            <div className="mb-3 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
           <span className="tracking-wide text-[11px] font-semibold uppercase text-slate-200">
@@ -678,8 +671,7 @@ function DeploymentMetaCard({
         </p>
       ) : (
         <>
-          {/* Status pills */}
-          <div className="mb-3 flex flex-wrap gap-2">
+                    <div className="mb-3 flex flex-wrap gap-2">
             <span
               className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
                 buildOk
@@ -714,8 +706,7 @@ function DeploymentMetaCard({
             </span>
           </div>
 
-          {/* Last infra event */}
-          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/80 px-3 py-2">
+                    <div className="rounded-2xl border border-slate-800/80 bg-slate-900/80 px-3 py-2">
             <p className="text-[10px] uppercase tracking-wide text-slate-500">
               Last infra event
             </p>
@@ -724,8 +715,7 @@ function DeploymentMetaCard({
             </p>
           </div>
 
-          {/* Footer explainer */}
-          <p className="mt-3 text-[10px] leading-relaxed text-slate-500">
+                    <p className="mt-3 text-[10px] leading-relaxed text-slate-500">
             Each deploy writes a fresh{" "}
             <code className="rounded bg-slate-800/80 px-1">meta/meta.json</code>{" "}
             to S3, and this card reads it at runtime. What you see here is the

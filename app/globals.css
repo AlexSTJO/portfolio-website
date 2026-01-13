@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;
@@ -29,6 +30,43 @@ body {
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+/* Blog prose styling */
+.prose strong {
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+.prose em {
+  color: #e2e8f0;
+  font-style: italic;
+}
+
+.prose code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace !important;
+  font-size: 0.875em;
+  background: rgb(30 41 59);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  color: #7dd3fc;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none !important;
+}
+
+.prose pre {
+  font-family: var(--font-geist-mono), ui-monospace, monospace !important;
+  background: rgb(15 23 42);
+  border: 1px solid rgb(51 65 85);
+  border-radius: 0.75rem;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
 }
 
 html::-webkit-scrollbar,
