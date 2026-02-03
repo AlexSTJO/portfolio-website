@@ -112,7 +112,7 @@ function highlightYaml(yaml: string): React.ReactNode[] {
             <span className="text-sky-400">{key}</span>
             {parts.map((part, j) =>
               part.startsWith("${") ? (
-                <span key={j} className="text-purple-400">
+                <span key={j} className="text-amber-400">
                   {part}
                 </span>
               ) : (
@@ -174,12 +174,12 @@ function highlightYaml(yaml: string): React.ReactNode[] {
     }
     // Pipe for multiline
     else if (line.trim() === "|") {
-      highlighted = <span className="text-purple-400">{line}</span>;
+      highlighted = <span className="text-amber-400">{line}</span>;
     }
 
     return (
       <div key={i} className="table-row group">
-        <span className="table-cell pr-4 text-right text-slate-600 select-none group-hover:text-slate-500 transition-colors">
+        <span className="table-cell pr-4 text-right text-slate-600 select-none group-hover:text-slate-500 transition-colors w-8">
           {i + 1}
         </span>
         <span className="table-cell">{highlighted}</span>
@@ -189,12 +189,12 @@ function highlightYaml(yaml: string): React.ReactNode[] {
 }
 
 const pipelineSteps = [
-  { id: "infra", label: "Terraform", icon: "⚙️", color: "purple" },
-  { id: "git", label: "Git Clone", icon: "📥", color: "sky" },
-  { id: "build", label: "Build", icon: "🔨", color: "amber" },
-  { id: "upload", label: "S3 Upload", icon: "☁️", color: "emerald" },
-  { id: "meta", label: "Meta", icon: "📝", color: "sky" },
-  { id: "invalidate", label: "CDN Invalidate", icon: "🚀", color: "purple" },
+  { id: "infra", label: "terraform", icon: "1" },
+  { id: "git", label: "git", icon: "2" },
+  { id: "build", label: "build", icon: "3" },
+  { id: "upload", label: "s3", icon: "4" },
+  { id: "meta", label: "meta", icon: "5" },
+  { id: "invalidate", label: "cdn", icon: "6" },
 ];
 
 export default function PipelinePage() {
@@ -210,103 +210,66 @@ export default function PipelinePage() {
   }, []);
 
   return (
-    <main className="relative min-h-screen bg-slate-950 text-slate-100 overflow-hidden">
-            <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl animate-pulse" />
-        <div className="absolute -right-32 -bottom-32 h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-3xl animate-pulse" />
-        <div className="absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl animate-pulse" />
-      </div>
+    <main className="relative min-h-screen bg-slate-950 text-slate-100">
+      {/* Subtle dot grid background */}
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,_rgb(51_65_85_/_0.3)_1px,_transparent_0)] bg-[size:24px_24px]" />
 
-      <div className="mx-auto max-w-5xl px-4 py-16 md:px-6">
-                <div
-          className={`transition-all duration-700 ${
-            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      <div className="mx-auto max-w-4xl px-4 py-12 md:px-6">
+        {/* Header */}
+        <div
+          className={`transition-opacity duration-500 ${
+            mounted ? "opacity-100" : "opacity-0"
           }`}
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-sky-300 transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 font-mono text-sm text-slate-500 hover:text-sky-400 transition-colors mb-8"
           >
-            <span className="group-hover:-translate-x-1 transition-transform">←</span>
-            Back to home
+            ← back
           </Link>
 
-          <div className="mb-12 relative">
-            <div className="absolute -left-4 top-0 bottom-0 w-1 rounded-full bg-gradient-to-b from-sky-500 via-purple-500 to-transparent" />
-
-            <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-3 py-1.5 text-xs font-medium text-sky-300 mb-5 shadow-lg shadow-sky-500/10">
-              <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
-              Live deployment config
-            </div>
-
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl text-slate-100">
+          <div className="mb-10">
+            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl text-slate-100">
               Deployment Pipeline
             </h1>
-
-            <p className="mt-5 text-lg text-slate-400 max-w-2xl leading-relaxed">
-              The actual <span className="text-sky-300 font-medium">Flume</span> pipeline that builds and deploys this website to AWS. Infrastructure provisioning, static build, S3 sync, and CDN invalidation in one declarative workflow.
+            <p className="mt-2 text-sm text-slate-500">
+              The Flume pipeline that builds and deploys this site to AWS.
             </p>
           </div>
         </div>
 
-                <div
-          className={`mb-8 transition-all duration-700 delay-200 ${
-            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        {/* Pipeline flow visualization */}
+        <div
+          className={`mb-6 transition-opacity duration-500 delay-100 ${
+            mounted ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="rounded-2xl border border-slate-700/50 bg-slate-900/50 p-6 md:p-8 backdrop-blur-xl">
-            <div className="flex items-center gap-2 mb-6">
-              <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
-                Pipeline Flow
-              </span>
-              <div className="flex-1 h-px bg-gradient-to-r from-slate-700 to-transparent" />
-            </div>
-
-            <div className="flex items-center justify-center gap-4 md:gap-6 py-4">
+          <div className="rounded-sm border border-slate-800 bg-slate-900/50 p-4">
+            <div className="flex items-center justify-center gap-2">
               {pipelineSteps.map((step, i) => (
                 <div key={step.id} className="flex items-center">
-                  <div className="relative flex flex-col items-center">
-                    {activeStep === i && (
-                      <div className="absolute -inset-4 rounded-2xl bg-sky-500/20 blur-xl animate-pulse" />
-                    )}
+                  <div className="flex flex-col items-center">
                     <div
-                      className={`relative z-10 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-2xl border text-lg md:text-xl transition-all duration-500 ${
+                      className={`flex items-center justify-center w-8 h-8 rounded-sm border font-mono text-xs transition-colors ${
                         activeStep === i
-                          ? "border-sky-400/50 bg-sky-500/20 shadow-lg shadow-sky-500/30 scale-110"
+                          ? "border-sky-500 text-sky-400 bg-sky-500/10"
                           : activeStep > i
-                          ? "border-emerald-500/30 bg-emerald-500/10"
-                          : "border-slate-700 bg-slate-800/50"
+                          ? "border-emerald-500/50 text-emerald-400"
+                          : "border-slate-700 text-slate-500"
                       }`}
                     >
                       {step.icon}
                     </div>
-                    <span
-                      className={`mt-2 text-[9px] md:text-[10px] font-medium whitespace-nowrap transition-colors ${
-                        activeStep === i
-                          ? "text-sky-300"
-                          : activeStep > i
-                          ? "text-emerald-400"
-                          : "text-slate-500"
-                      }`}
-                    >
+                    <span className="mt-1.5 font-mono text-[10px] text-slate-600">
                       {step.label}
                     </span>
                   </div>
                   {i < pipelineSteps.length - 1 && (
-                    <div className="flex items-center ml-4 md:ml-6 -mt-5">
-                      <div
-                        className={`h-0.5 w-4 md:w-6 transition-all duration-500 ${
-                          activeStep > i
-                            ? "bg-gradient-to-r from-emerald-500 to-emerald-400"
-                            : "bg-slate-700"
-                        }`}
-                      />
-                      <div
-                        className={`h-0 w-0 border-y-[3px] border-l-[5px] border-y-transparent transition-colors ${
-                          activeStep > i ? "border-l-emerald-400" : "border-l-slate-700"
-                        }`}
-                      />
-                    </div>
+                    <div
+                      className={`w-8 h-px mx-2 -mt-5 transition-colors ${
+                        activeStep > i ? "bg-emerald-500/50" : "bg-slate-700"
+                      }`}
+                    />
                   )}
                 </div>
               ))}
@@ -314,111 +277,57 @@ export default function PipelinePage() {
           </div>
         </div>
 
-                <div
-          className={`transition-all duration-700 delay-300 ${
-            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        {/* YAML viewer */}
+        <div
+          className={`transition-opacity duration-500 delay-200 ${
+            mounted ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="rounded-3xl border border-slate-700/50 bg-slate-900/80 shadow-2xl shadow-sky-500/10 backdrop-blur-xl overflow-hidden">
-                        <div className="flex items-center justify-between border-b border-slate-700/50 bg-slate-900/90 px-6 py-4">
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
-                <span className="text-sm font-medium text-slate-200">
-                  portfolio-website.yaml
-                </span>
-              </div>
+          <div className="rounded-sm border border-slate-800 bg-slate-900/50 overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-slate-800 px-4 py-2">
+              <span className="font-mono text-sm text-slate-300">
+                portfolio-website.yaml
+              </span>
               <a
                 href="https://github.com/AlexSTJO/flume"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-700/50 bg-slate-800/50 px-3 py-1 text-xs text-slate-400 hover:text-sky-300 hover:border-sky-500/30 transition-all"
+                className="font-mono text-xs text-slate-500 hover:text-sky-400 transition-colors"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-                Powered by Flume
+                flume ↗
               </a>
             </div>
 
-                        <div className="relative">
-              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-slate-900/50 to-transparent pointer-events-none z-10" />
-              <pre className="overflow-x-auto p-6 text-sm leading-relaxed font-mono">
-                <code className="table">{highlightYaml(pipelineYaml)}</code>
-              </pre>
-            </div>
+            {/* Code */}
+            <pre className="overflow-x-auto p-4 text-xs leading-relaxed font-mono">
+              <code className="table">{highlightYaml(pipelineYaml)}</code>
+            </pre>
           </div>
         </div>
 
-                <div
-          className={`mt-8 transition-all duration-700 delay-500 ${
-            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        {/* Steps explanation */}
+        <div
+          className={`mt-6 transition-opacity duration-500 delay-300 ${
+            mounted ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="rounded-3xl border border-slate-700/50 bg-slate-900/50 p-6 backdrop-blur-xl">
-            <h3 className="text-lg font-semibold text-slate-100 mb-6 flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-gradient-to-r from-sky-400 to-purple-400" />
-              How it works
-            </h3>
-
-            <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-sm border border-slate-800 bg-slate-900/50 p-4">
+            <p className="font-mono text-xs text-slate-500 mb-4">steps</p>
+            <div className="grid gap-3 sm:grid-cols-2">
               {[
-                {
-                  step: "1",
-                  title: "Infrastructure",
-                  desc: "Terraform provisions the S3 bucket and CloudFront distribution",
-                  color: "purple",
-                },
-                {
-                  step: "2",
-                  title: "Git Pull",
-                  desc: "Clones the portfolio-website repo using GitHub App auth",
-                  color: "sky",
-                },
-                {
-                  step: "3",
-                  title: "Build",
-                  desc: "Runs npm install and npm run build for static export",
-                  color: "amber",
-                },
-                {
-                  step: "4",
-                  title: "Upload",
-                  desc: "Syncs the build output to S3 with the correct prefix",
-                  color: "emerald",
-                },
-                {
-                  step: "5",
-                  title: "Meta",
-                  desc: "Writes deployment status to meta.json for live status display",
-                  color: "sky",
-                },
-                {
-                  step: "6",
-                  title: "Invalidate",
-                  desc: "Clears the CloudFront cache so changes go live instantly",
-                  color: "purple",
-                },
+                { n: "1", title: "terraform", desc: "Provision S3 bucket and CloudFront" },
+                { n: "2", title: "git", desc: "Clone portfolio-website repo" },
+                { n: "3", title: "build", desc: "npm install && npm run build" },
+                { n: "4", title: "s3", desc: "Sync build output to S3" },
+                { n: "5", title: "meta", desc: "Write deployment status to meta.json" },
+                { n: "6", title: "cdn", desc: "Invalidate CloudFront cache" },
               ].map((item) => (
-                <div
-                  key={item.step}
-                  className="group relative rounded-2xl border border-slate-800 bg-slate-900/50 p-4 hover:border-slate-700 transition-all hover:-translate-y-0.5"
-                >
-                  <div className="flex items-start gap-3">
-                    <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
-                        item.color === "purple"
-                          ? "bg-purple-500/20 text-purple-300"
-                          : item.color === "sky"
-                          ? "bg-sky-500/20 text-sky-300"
-                          : item.color === "amber"
-                          ? "bg-amber-500/20 text-amber-300"
-                          : "bg-emerald-500/20 text-emerald-300"
-                      }`}
-                    >
-                      {item.step}
-                    </span>
-                    <div>
-                      <h4 className="font-medium text-slate-200">{item.title}</h4>
-                      <p className="mt-1 text-sm text-slate-400">{item.desc}</p>
-                    </div>
+                <div key={item.n} className="flex gap-3">
+                  <span className="font-mono text-xs text-slate-600 w-4">{item.n}.</span>
+                  <div>
+                    <p className="font-mono text-xs text-slate-300">{item.title}</p>
+                    <p className="text-xs text-slate-500">{item.desc}</p>
                   </div>
                 </div>
               ))}

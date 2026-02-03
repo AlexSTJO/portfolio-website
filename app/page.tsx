@@ -60,7 +60,7 @@ const projects = [
     stack: ["Python", "AWS", "Lambda", "S3",  "Internal ALB Configuration", "Scheduling", "Cost Optimization"],
   },
   {
-    name: "Datadog → Confluence Sync",
+    name: "PEP Versioning Tool",
     label: "Internal automation for Hilton",
     description:
       "Automation powered by Bamboo that pulls observability data from Datadog APIs and publishes human-friendly status reports into Confluence.",
@@ -133,57 +133,58 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-slate-950 text-slate-100">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
-        <div className="absolute -right-24 -bottom-24 h-80 w-80 rounded-full bg-purple-500/20 blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.09),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(168,85,247,0.09),_transparent_55%)]" />
-      </div>
+      {/* Subtle dot grid background */}
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_1px_1px,_rgb(51_65_85_/_0.3)_1px,_transparent_0)] bg-[size:24px_24px]" />
 
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-16 pt-6 md:px-6 lg:px-8">
-        <header className="mb-10 flex items-center justify-between pt-4">
-          <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/20 text-sm font-semibold text-sky-300">
-              AS
+        <header className="mb-8 pt-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="flex h-9 w-9 items-center justify-center rounded-sm border border-slate-700 bg-slate-900 text-sm font-mono font-semibold text-sky-400">
+                AS
+              </div>
+              <div className="leading-tight">
+                <p className="text-sm font-medium text-slate-100">
+                  Alexandros St. John
+                </p>
+                <p className="text-xs text-slate-400">
+                  Cloud Engineer & Automation Developer
+                </p>
+              </div>
             </div>
-            <div className="leading-tight">
-              <p className="text-sm font-medium text-slate-100">
-                Alexandros St. John
-              </p>
-              <p className="text-xs text-slate-400">
-                Cloud Engineer & Automation Developer
-              </p>
-            </div>
+
+            <nav className="hidden gap-6 text-sm font-mono text-slate-400 md:flex">
+              <a href="#projects" className="hover:text-sky-400">
+                projects
+              </a>
+              <a href="#experience" className="hover:text-sky-400">
+                experience
+              </a>
+              <a href="#about" className="hover:text-sky-400">
+                about
+              </a>
+              <Link href="/blog" className="hover:text-sky-400">
+                blog
+              </Link>
+              <a href="#contact" className="hover:text-sky-400">
+                contact
+              </a>
+            </nav>
           </div>
 
-          <nav className="hidden gap-6 text-sm text-slate-300 md:flex">
-            <a href="#projects" className="hover:text-sky-300">
-              Projects
-            </a>
-            <a href="#experience" className="hover:text-sky-300">
-              Experience
-            </a>
-            <a href="#about" className="hover:text-sky-300">
-              About
-            </a>
-            <Link href="/blog" className="hover:text-sky-300">
-              Blog
-            </Link>
-            <a href="#contact" className="hover:text-sky-300">
-              Contact
-            </a>
-          </nav>
+          <div className="mt-3">
+            <span className="inline-flex items-center gap-2 font-mono text-xs text-slate-500">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              status: open to Cloud / Platform / DevOps roles (EU)
+            </span>
+          </div>
         </header>
 
-        <section className="mb-20 grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:items-center">
+        <section className="mb-14 grid gap-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:items-center">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-slate-700/80 bg-slate-900/70 px-3 py-1 text-xs text-slate-300 shadow-sm shadow-sky-500/10">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              Open to Cloud / Platform / DevOps roles (EU)
-            </div>
-
-            <h1 className="mt-6 text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
               Cloud Engineer
-              <span className="block bg-gradient-to-r from-sky-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="block text-sky-400">
                 Open Source Dev
               </span>
             </h1>
@@ -194,92 +195,66 @@ export default function Home() {
               a workflow orchestrator written in Go.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-purple-500 px-5 py-2.5 text-sm font-medium text-slate-50 shadow-lg shadow-sky-500/30 transition hover:brightness-110"
+                className="inline-flex items-center justify-center rounded-sm border border-sky-500 bg-sky-500 px-4 py-2 text-sm font-medium text-slate-950 transition hover:bg-sky-400"
               >
-                View Flume & projects
+                View projects
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center rounded-full border border-slate-700/80 bg-slate-900/70 px-4 py-2.5 text-sm font-medium text-slate-200 shadow-sm hover:border-sky-400/70 hover:text-sky-200"
+                className="inline-flex items-center justify-center rounded-sm border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-slate-500"
               >
-                Get in touch
+                Contact
               </a>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-400">
-              <span className="rounded-full border border-slate-700/80 bg-slate-900/70 px-3 py-1">
-                AWS SAA-C03 Certified
-              </span>
-              <span className="rounded-full border border-slate-700/80 bg-slate-900/70 px-3 py-1">
-                1 year Cloud Engineering @ Hilton
-              </span>
-              <span className="rounded-full border border-slate-700/80 bg-slate-900/70 px-3 py-1">
-                Research Assistant @ Tufts University
-              </span>
-              <span className="rounded-full border border-slate-700/80 bg-slate-900/70 px-3 py-1">
-                HackHarvard, HackBrown, & SBUHacks winner
-              </span> 
-            </div>
+            <ul className="mt-6 space-y-1 font-mono text-xs text-slate-500">
+              <li>· AWS SAA-C03 Certified</li>
+              <li>· 1 year Cloud Engineering @ Hilton</li>
+              <li>· Research Assistant @ Tufts University</li>
+              <li>· HackHarvard, HackBrown, & SBUHacks winner</li>
+            </ul>
           </div>
 
           <div className="relative">
-            <div className="absolute -right-6 -top-4 h-32 w-32 rounded-full bg-sky-500/30 blur-3xl" />
-            <div className="absolute -bottom-6 -left-6 h-28 w-28 rounded-full bg-purple-500/30 blur-3xl" />
-
-            <div className="relative rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-2xl shadow-sky-500/20 backdrop-blur-xl">
-              <div className="mb-4 flex items-center justify-between text-xs text-slate-400">
-                <span className="flex items-center gap-2 font-semibold text-slate-100">
-                <span>Pipeline · portfolio-deploy</span>
-                  <span
-                    className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-300 border border-emerald-500/20 shadow-sm shadow-emerald-500/20"
-                    title="This site redeploys itself through a custom workflow engine that runs Terraform plans, Next.js builds, and S3/CloudFront sync."
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
-                    Deployed via Flume Engine
-                </span>
-                </span>
-
+            <div className="rounded-sm border border-sky-500/30 border-l-sky-500 border-l-2 bg-slate-900 p-4 shadow-[0_0_15px_rgba(14,165,233,0.1)]">
+              <div className="mb-3 flex items-center justify-between font-mono text-xs">
+                <span className="text-sky-400">pipeline/portfolio-deploy</span>
                 <span
-                  className={`flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] ${
+                  className={`flex items-center gap-1.5 ${
                     health === "healthy"
-                      ? "bg-emerald-500/10 text-emerald-300"
+                      ? "text-emerald-400"
                       : health === "degraded"
-                      ? "bg-amber-500/10 text-amber-300"
+                      ? "text-amber-400"
                       : health === "failing"
-                      ? "bg-rose-500/10 text-rose-300"
-                      : "bg-slate-700/60 text-slate-200"
+                      ? "text-rose-400"
+                      : "text-slate-400"
                   }`}
                 >
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
                       health === "healthy"
-                        ? "bg-emerald-300"
+                        ? "bg-emerald-400"
                         : health === "degraded"
-                        ? "bg-amber-300"
+                        ? "bg-amber-400"
                         : health === "failing"
-                        ? "bg-rose-300"
-                        : "bg-slate-300"
+                        ? "bg-rose-400"
+                        : "bg-slate-400"
                     }`}
                   />
                   {metaLoading
-                    ? "Checking…"
-                    : health === "healthy"
-                    ? "Healthy"
-                    : health === "degraded"
-                    ? "Degraded"
-                    : health === "failing"
-                    ? "Failing"
-                    : "Unknown"}
+                    ? "checking"
+                    : health}
                 </span>
               </div>
 
-                            <div className="relative grid grid-cols-3 gap-4">
+              <div className="relative grid grid-cols-3 gap-3">
                 <PipelineNode
                   title="checkout"
                   subtitle="Git clone"
+                  color="sky"
                   status={
                     meta?.pull_status === "true"
                       ? "done"
@@ -291,6 +266,7 @@ export default function Home() {
                 <PipelineNode
                   title="build"
                   subtitle="Next static build"
+                  color="amber"
                   status={
                     meta?.build_status === "true"
                       ? "done"
@@ -302,6 +278,7 @@ export default function Home() {
                 <PipelineNode
                   title="deploy"
                   subtitle="S3 + CloudFront"
+                  color="emerald"
                   status={
                     meta?.upload_status === "true"
                       ? "done"
@@ -315,187 +292,148 @@ export default function Home() {
                 <DeploymentMetaCard meta={meta} loading={metaLoading} />
               </div>
 
-              <p className="mt-3 text-[11px] text-slate-400">
-                Powered by <span className="font-semibold text-sky-300">Flume</span> — each
-                deployment uses Flume&apos;s Terraform integration to provision cloud resources and
-                expose them seamlessly to downstream services in the workflow.
+              <p className="mt-3 font-mono text-[10px] text-slate-500">
+                Powered by Flume — Terraform → build → S3 → CloudFront
               </p>
 
               <Link
                 href="/pipeline"
-                className="mt-4 inline-flex items-center justify-center gap-2 rounded-full border border-sky-500/50 bg-sky-500/10 px-4 py-2 text-xs font-medium text-sky-300 shadow-lg shadow-sky-500/20 transition hover:bg-sky-500/20 hover:border-sky-400 hover:shadow-sky-500/30"
+                className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs text-sky-400 hover:text-sky-300"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
-                View Pipeline YAML
+                view pipeline.yaml →
               </Link>
             </div>
           </div>
         </section>
 
-                <section id="projects" className="mb-20">
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                Projects
-              </h2>
-              <p className="mt-2 text-sm text-slate-400">
-                Infra-aware tooling, automation, and cloud-native systems I&apos;ve
-                built.
-              </p>
-            </div>
-            <div className="hidden rounded-full border border-slate-700/80 bg-slate-900/70 px-3 py-1 text-xs text-slate-300 md:inline-flex">
-              <span className="mr-2 h-1.5 w-1.5 rounded-full bg-sky-400" />
-              Focused on automation & developer experience
-            </div>
-          </div>
+        <section id="projects" className="mb-16">
+          <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
+            Projects
+          </h2>
+          <p className="mt-1 text-sm text-slate-500">
+            Infra tooling, automation, and cloud-native systems.
+          </p>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
             {projects.map((project) => (
               <article
                 key={project.name}
-                className={`group relative overflow-hidden rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-md shadow-sky-900/50 backdrop-blur-xl transition hover:-translate-y-1 hover:border-sky-500/70 hover:shadow-sky-500/40 ${
+                className={`group rounded-sm border border-slate-800 bg-slate-900/50 p-4 transition hover:border-slate-600 ${
                   project.featured ? "md:col-span-2" : ""
                 }`}
               >
-                {project.featured && (
-                  <div className="mb-3 inline-flex items-center rounded-full bg-sky-500/10 px-2 py-1 text-[11px] font-medium text-sky-300">
-                    Featured
-                  </div>
-                )}
-                <h3 className="text-lg font-semibold text-slate-50">
-                  {project.name}
-                </h3>
-                <p className="mt-1 text-xs text-slate-400">{project.label}</p>
-                <p className="mt-3 text-sm text-slate-300">
-                  {project.description}
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-2">
-                  {project.stack.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-slate-800/90 px-2.5 py-1 text-[11px] text-slate-200"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-4 flex items-center justify-between text-xs">
+                <div className="flex items-baseline justify-between gap-2">
+                  <h3 className="font-semibold text-slate-100">
+                    {project.name}
+                  </h3>
                   {project.link && (
                     <a
                       href={project.link}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-sky-300 hover:text-sky-200"
+                      className="font-mono text-xs text-sky-400 hover:text-sky-300"
                     >
-                      View on GitHub
-                      <span aria-hidden>↗</span>
+                      github ↗
                     </a>
                   )}
-                  <span className="text-slate-500">
-                    Built for real-world automation use cases
-                  </span>
+                </div>
+                <p className="mt-0.5 font-mono text-xs text-slate-500">{project.label}</p>
+                <p className="mt-2 text-sm text-slate-400">
+                  {project.description}
+                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                  {project.stack.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-sm border border-slate-700 bg-slate-800 px-1.5 py-0.5 font-mono text-[10px] text-slate-300"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-                <section id="experience" className="mb-20">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <section id="experience" className="mb-16">
+          <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
             Experience
           </h2>
-          <p className="mt-2 text-sm text-slate-400">
-            Roles where I&apos;ve shipped tooling, automation, and platforms that
-            people actually use.
+          <p className="mt-1 text-sm text-slate-500">
+            Where I&apos;ve shipped tooling and automation.
           </p>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-[0.25fr_minmax(0,1fr)]">
-                        <div className="relative hidden md:block">
-              <div className="absolute left-1/2 h-full w-px -translate-x-1/2 bg-gradient-to-b from-sky-500/50 via-slate-700/80 to-purple-500/50" />
-            </div>
-
-            <div className="space-y-6">
-              {experience.map((job, idx) => (
-                <article
-                  key={job.company}
-                  className="relative overflow-hidden rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-md shadow-sky-900/40 backdrop-blur-xl"
-                >
-                                    <div className="absolute -left-4 top-6 hidden h-3 w-3 rounded-full border border-sky-300 bg-slate-950 md:block" />
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                      <h3 className="text-sm font-semibold text-slate-100 sm:text-base">
-                        {job.role}
-                      </h3>
-                      <p className="text-xs text-slate-400">{job.company}</p>
-                    </div>
-                    <p className="text-xs text-slate-400">{job.period}</p>
+          <div className="mt-6 space-y-4">
+            {experience.map((job) => (
+              <article
+                key={job.company}
+                className="rounded-sm border border-slate-800 bg-slate-900/50 p-4"
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <div>
+                    <h3 className="font-semibold text-slate-100">
+                      {job.role}
+                    </h3>
+                    <p className="font-mono text-xs text-slate-500">{job.company}</p>
                   </div>
-                  <p className="mt-3 text-sm text-slate-300">
-                    {job.description}
+                  <p className="font-mono text-xs text-slate-500">{job.period}</p>
+                </div>
+                <p className="mt-2 text-sm text-slate-400">
+                  {job.description}
+                </p>
+                <ul className="mt-3 space-y-1 text-sm text-slate-400">
+                  {job.points.map((point) => (
+                    <li key={point} className="flex gap-2">
+                      <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-slate-600" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                {job.devpost && (
+                  <p className="mt-3">
+                    <a
+                      href={job.devpost}
+                      target="_blank"
+                      className="font-mono text-xs text-sky-400 hover:text-sky-300"
+                    >
+                      devpost.com/AlexSTJO ↗
+                    </a>
                   </p>
-                  <ul className="mt-3 space-y-1.5 text-sm text-slate-300">
-                    {job.points.map((point) => (
-                      <li key={point} className="flex gap-2">
-                        <span className="mt-1 h-1 w-1 flex-shrink-0 rounded-full bg-sky-400" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                    {job.devpost && (
-                      <p className="mt-3">
-                        <a
-                          href={job.devpost}
-                          target="_blank"
-                          className="text-xs text-sky-300 underline hover:text-sky-200"
-                        >
-                          View my hackathon projects on Devpost ↗
-                        </a>
-                      </p>
-                    )}
-                  <p className="mt-3 text-[11px] uppercase tracking-wide text-slate-500">
-                    {idx === 0
-                      ? "Most recent · heavy AWS & automation focus"
-                      : "Hands-on software experience"}
-                  </p>
-                </article>
-              ))}
-            </div>
+                )}
+              </article>
+            ))}
           </div>
         </section>
 
-                <section id="about" className="mb-20">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <section id="about" className="mb-16">
+          <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
             About
           </h2>
-          <p className="mt-2 text-sm text-slate-400">
-            A bit more about who I am and how I like to build.
-          </p>
 
-          <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] items-start">
-  
-                        <div className="space-y-6">
-              
-                            <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-md shadow-sky-900/40 backdrop-blur-xl">
-                <p className="text-sm text-slate-300">
-                  I&apos;m a cloud engineer with a CS degree and math minor. I like building tools
+          <div className="mt-4 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,0.7fr)] items-start">
+            <div className="space-y-4">
+              <div className="text-sm text-slate-400 leading-relaxed">
+                <p>
+                  Cloud engineer with a CS degree and math minor. I build tools
                   that make cloud infrastructure easier to work with. Most of my time goes into
                   automation, Terraform, and writing code that other engineers won&apos;t hate me for.
                 </p>
-                <p className="mt-3 text-sm text-slate-300">
-                  Go + AWS + Terraform is my usual stack. I care a lot about good logging and
+                <p className="mt-3">
+                  Go + AWS + Terraform is my usual stack. I care about good logging and
                   pipelines that actually work. Sometimes I build frontends too, like this site.
                 </p>
               </div>
 
-                            <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 p-4 text-sm text-slate-300 shadow-md shadow-sky-900/40 backdrop-blur-xl">
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-                  Skills & tools
+              <div>
+                <h3 className="font-mono text-xs text-slate-500 uppercase">
+                  stack
                 </h3>
-                <div className="mt-3 flex flex-wrap gap-2">
+                <div className="mt-2 flex flex-wrap gap-1.5">
                   {skills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-full bg-slate-800/90 px-2.5 py-1 text-[11px]"
+                      className="rounded-sm border border-slate-700 bg-slate-800 px-1.5 py-0.5 font-mono text-[10px] text-slate-300"
                     >
                       {skill}
                     </span>
@@ -503,75 +441,73 @@ export default function Home() {
                 </div>
               </div>
 
-                            <div className="rounded-3xl border border-slate-700/80 bg-slate-900/80 p-4 text-sm text-slate-300 shadow-md shadow-sky-900/40 backdrop-blur-xl">
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-                  Outside of work
+              <div className="text-sm text-slate-500">
+                <h3 className="font-mono text-xs uppercase">
+                  outside work
                 </h3>
-                <p className="mt-2 text-sm text-slate-300">
-                  I lift, play volleyball, and read a lot of history. Dual U.S.–Greek citizen,
-                  so I travel around the Mediterranean when I can. I also code for fun, mostly
-                  small scripts to automate random stuff.
-                </p>                
+                <p className="mt-2 text-slate-400">
+                  I lift regularly and play volleyball when I can find a court. Big reader of history,
+                  especially ancient Greek and Roman. Dual U.S.–Greek citizen, so I spend time around
+                  the Mediterranean when possible. The photo is from Samothrace.
+                </p>
+                <p className="mt-2">
+                  I also write small scripts and tools for fun. Automating random stuff is
+                  basically a hobby at this point.
+                </p>
               </div>
-
             </div>
 
-                        <div className="relative flex justify-center">              
-               <div className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-sky-500/20 blur-3xl" />
+            <div className="flex justify-center">
               <img
                 src="/images/me.webp"
                 alt="Alex standing near ancient ruins in Samothrace"
-                className="w-full max-w-xs md:max-w-sm rounded-3xl border border-slate-700/70 shadow-md shadow-sky-900/30 object-cover"
+                className="w-full max-w-xs rounded-sm border border-slate-700 object-cover"
               />
             </div>
-
           </div>
-
         </section>
 
-                <section
+        <section
           id="contact"
-          className="mt-auto rounded-3xl border border-slate-700/80 bg-slate-900/80 p-5 shadow-md shadow-sky-900/40 backdrop-blur-xl"
+          className="mt-auto border-t border-slate-800 pt-8"
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-slate-50">
-                Let&apos;s build something automated.
+              <h2 className="font-semibold text-slate-100">
+                Get in touch
               </h2>
-              <p className="mt-1 text-sm text-slate-400">
-                I&apos;m open to remote Cloud, Platform, or DevOps roles where I can
-                design and own automation tooling.
+              <p className="mt-1 text-sm text-slate-500">
+                Open to remote Cloud, Platform, or DevOps roles.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href="mailto:alexandros.georgakoudi@gmail.com"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-purple-500 px-4 py-2 text-sm font-medium text-slate-50 shadow-md shadow-sky-500/40 hover:brightness-110"
+                className="inline-flex items-center justify-center rounded-sm border border-sky-500 bg-sky-500 px-3 py-1.5 text-sm font-medium text-slate-950 transition hover:bg-sky-400"
               >
-                Email me
+                Email
               </a>
               <a
                 href="https://github.com/AlexSTJO"
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-slate-700/80 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-200 hover:border-sky-400/70 hover:text-sky-200"
+                className="rounded-sm border border-slate-700 px-3 py-1.5 font-mono text-xs text-slate-300 hover:border-slate-500"
               >
-                GitHub
+                github
               </a>
               <a
                 href="https://www.linkedin.com/in/alexstjohn1/"
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-slate-700/80 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-200 hover:border-sky-400/70 hover:text-sky-200"
+                className="rounded-sm border border-slate-700 px-3 py-1.5 font-mono text-xs text-slate-300 hover:border-slate-500"
               >
-                LinkedIn
+                linkedin
               </a>
             </div>
           </div>
 
-          <p className="mt-4 text-[11px] text-slate-500">
-            © {new Date().getFullYear()} Alexandros St. John · Site built with
-            Next.js, Tailwind, and deployed via Flume.
+          <p className="mt-6 font-mono text-[10px] text-slate-600">
+            © {new Date().getFullYear()} Alexandros St. John · Next.js · Tailwind · Deployed via Flume
           </p>
         </section>
       </div>
@@ -580,59 +516,42 @@ export default function Home() {
 }
 
 type PipelineStatus = "done" | "running" | "pending";
+type PipelineColor = "sky" | "amber" | "emerald";
 
 function PipelineNode({
   title,
   subtitle,
   status,
+  color,
 }: {
   title: string;
   subtitle: string;
   status: PipelineStatus;
+  color: PipelineColor;
 }) {
-  const statusStyles: Record<PipelineStatus, string> = {
-    done: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40",
-    running: "bg-sky-500/15 text-sky-300 border-sky-500/40",
-    pending: "bg-slate-800/60 text-slate-300 border-slate-600/70",
+  const colorStyles: Record<PipelineColor, { active: string; done: string }> = {
+    sky: { active: "border-sky-500/50 text-sky-400", done: "border-sky-500/30 text-sky-400/70" },
+    amber: { active: "border-amber-500/50 text-amber-400", done: "border-amber-500/30 text-amber-400/70" },
+    emerald: { active: "border-emerald-500/50 text-emerald-400", done: "border-emerald-500/30 text-emerald-400/70" },
   };
+
+  const style = status === "done"
+    ? colorStyles[color].done
+    : status === "running"
+    ? colorStyles[color].active
+    : "border-slate-700 text-slate-500";
 
   return (
     <div
-      className={`relative z-10 rounded-2xl border px-3 py-2.5 text-[11px] ${statusStyles[status]}`}
+      className={`rounded-sm border bg-slate-900 px-2 py-2 font-mono text-[10px] ${style}`}
     >
-      <p className="font-semibold">{title}</p>
-      <p className="mt-0.5 text-[10px] text-slate-300/80">{subtitle}</p>
+      <p className="font-medium">{title}</p>
+      <p className="mt-0.5 text-slate-500">{subtitle}</p>
     </div>
   );
 }
 
 
-function StatusCard({
-  label,
-  value,
-  accent,
-}: {
-  label: string;
-  value: string;
-  accent: "sky" | "purple" | "emerald" | "slate";
-}) {
-  const dotColor: Record<typeof accent, string> = {
-    sky: "bg-sky-400",
-    purple: "bg-purple-400",
-    emerald: "bg-emerald-400",
-    slate: "bg-slate-400",
-  };
-
-  return (
-    <div className="rounded-2xl border border-slate-700/80 bg-slate-900/90 px-3 py-2">
-      <p className="flex items-center gap-1.5 text-[10px] uppercase tracking-wide text-slate-400">
-        <span className={`h-1.5 w-1.5 rounded-full ${dotColor[accent]}`} />
-        {label}
-      </p>
-      <p className="mt-1 text-[11px] text-slate-100">{value}</p>
-    </div>
-  );
-}
 
 
 
@@ -648,79 +567,31 @@ function DeploymentMetaCard({
   const uploadOk = meta?.upload_status === "true";
 
   return (
-    <div className="mt-5 rounded-3xl border border-slate-700/80 bg-slate-900/80 p-4 text-[11px] text-slate-300 shadow-md shadow-sky-900/40 backdrop-blur-xl">
-            <div className="mb-3 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-          <span className="tracking-wide text-[11px] font-semibold uppercase text-slate-200">
-            Deployment meta
-          </span>
-        </div>
-
-        <span className="inline-flex items-center gap-1 rounded-full border border-slate-700/80 bg-slate-900/80 px-2 py-0.5 text-[10px] text-slate-400">
-          Live data from <span className="text-sky-300 font-medium">Flume</span>
-        </span>
-      </div>
-
+    <div className="mt-3 border-t border-slate-800 pt-3 font-mono text-[10px]">
       {loading ? (
-        <p className="text-slate-500 text-[11px]">Fetching latest deploy meta…</p>
+        <p className="text-slate-500">fetching meta...</p>
       ) : !meta ? (
-        <p className="text-slate-500 text-[11px]">
-          No metadata found — pipeline may not have written{" "}
-          <code className="rounded bg-slate-800/80 px-1">meta/meta.json</code> yet.
+        <p className="text-slate-500">
+          no meta found — meta/meta.json not written yet
         </p>
       ) : (
         <>
-                    <div className="mb-3 flex flex-wrap gap-2">
-            <span
-              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                buildOk
-                  ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30"
-                  : "bg-rose-500/10 text-rose-300 border border-rose-500/40"
-              }`}
-            >
-              <span className="h-1 w-1 rounded-full bg-current" />
-              build: {buildOk ? "ok" : "failed"}
+          <div className="flex flex-wrap gap-3 text-slate-400">
+            <span className={buildOk ? "text-emerald-400" : "text-rose-400"}>
+              build: {buildOk ? "ok" : "fail"}
             </span>
-
-            <span
-              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                pullOk
-                  ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30"
-                  : "bg-rose-500/10 text-rose-300 border border-rose-500/40"
-              }`}
-            >
-              <span className="h-1 w-1 rounded-full bg-current" />
-              git: {pullOk ? "synced" : "error"}
+            <span className={pullOk ? "text-emerald-400" : "text-rose-400"}>
+              git: {pullOk ? "ok" : "fail"}
             </span>
-
-            <span
-              className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                uploadOk
-                  ? "bg-emerald-500/10 text-emerald-300 border border-emerald-500/30"
-                  : "bg-rose-500/10 text-rose-300 border border-rose-500/40"
-              }`}
-            >
-              <span className="h-1 w-1 rounded-full bg-current" />
-              s3: {uploadOk ? "uploaded" : "error"}
+            <span className={uploadOk ? "text-emerald-400" : "text-rose-400"}>
+              s3: {uploadOk ? "ok" : "fail"}
             </span>
           </div>
-
-                    <div className="rounded-2xl border border-slate-800/80 bg-slate-900/80 px-3 py-2">
-            <p className="text-[10px] uppercase tracking-wide text-slate-500">
-              Last infra event
+          {meta.infra_status && (
+            <p className="mt-2 text-slate-500">
+              infra: {meta.infra_status}
             </p>
-            <p className="mt-1 text-[11px] text-slate-100">
-              {meta.infra_status || "Unknown"}
-            </p>
-          </div>
-
-                    <p className="mt-3 text-[10px] leading-relaxed text-slate-500">
-            Each deploy writes a fresh{" "}
-            <code className="rounded bg-slate-800/80 px-1">meta/meta.json</code>{" "}
-            to S3, and this card reads it at runtime. What you see here is the
-            actual state of the last deployment, not a hard-coded demo.
-          </p>
+          )}
         </>
       )}
     </div>
