@@ -45,6 +45,13 @@ const projects = [
     featured: true,
   },
   {
+    name: "depl",
+    label: "Internal account bootstrapping CLI for a client AWS migration",
+    description:
+      "Python CLI that automatically bootstraps new AWS accounts for Terraform. It provisions the S3/KMS remote state backend, IAM roles, and GitHub Actions OIDC trust, so a fresh account is ready for CI/CD deployments in one command. It also validates AWS SSO sessions and opens SSM port-forwarding tunnels (RDP, database) to private instances without bastions or open inbound ports.",
+    stack: ["Python", "Terraform", "AWS SSO", "GitHub Actions OIDC", "SSM Session Manager", "Boto3"],
+  },
+  {
     name: "Orca",
     label: "Cloud script runner",
     description:
@@ -69,6 +76,19 @@ const projects = [
 ];
 
 const experience = [
+  {
+    company: "Deloitte",
+    role: "Cloud Engineer, Infrastructure & Migration",
+    period: "Present",
+    description:
+      "Cloud engineer on a large-scale AWS migration for a German automotive manufacturer, moving legacy on-prem systems into a multi-account AWS environment.",
+    points: [
+      "Built the project's IaC and deployment foundation: a Terraform bootstrap module for S3/KMS remote state and IAM, plus GitHub Actions pipelines using OIDC authentication to plan and apply infrastructure changes across environments.",
+      "Write Python services that replace legacy batch workloads, running them serverless on Lambda with S3 and RDS SQL Server, deployed through the same CI/CD pipelines.",
+      "Plan database migrations with AWS DMS over Transit Gateway and designed a VPN-over-TGW architecture that lowered networking costs.",
+      "Debug hybrid connectivity issues across load balancers, Active Directory DNS, and on-prem networks.",
+    ],
+  },
   {
     company: "Hilton",
     role: "Cloud Engineering Intern",
@@ -175,7 +195,7 @@ export default function Home() {
           <div className="mt-3">
             <span className="inline-flex items-center gap-2 font-mono text-xs text-slate-500">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              status: open to Cloud / Platform / DevOps roles (EU)
+              status: US + EU work authorization
             </span>
           </div>
         </header>
@@ -211,9 +231,11 @@ export default function Home() {
             </div>
 
             <ul className="mt-6 space-y-1 font-mono text-xs text-slate-500">
-              <li>· AWS SAA-C03 Certified</li>
+              <li>· AWS Solutions Architect Associate (SAA-C03)</li>
+              <li>· HashiCorp Terraform Associate (004)</li>
+              <li>· Google Cloud Associate Cloud Engineer</li>
+              <li>· Cloud Engineer @ Deloitte</li>
               <li>· 1 year Cloud Engineering @ Hilton</li>
-              <li>· Research Assistant @ Tufts University</li>
               <li>· HackHarvard, HackBrown, & SBUHacks winner</li>
             </ul>
           </div>
@@ -477,7 +499,7 @@ export default function Home() {
                 Get in touch
               </h2>
               <p className="mt-1 text-sm text-slate-500">
-                Open to remote Cloud, Platform, or DevOps roles.
+                Happy to talk cloud infrastructure, Terraform, or Go. Reach out anytime.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
