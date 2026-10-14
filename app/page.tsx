@@ -81,7 +81,7 @@ const experience = [
     role: "Cloud Engineer, Infrastructure & Migration",
     period: "Present",
     description:
-      "Cloud engineer on a large-scale AWS migration for a German automotive manufacturer, moving legacy on-prem systems into a multi-account AWS environment.",
+      "Cloud engineer on large-scale AWS migrations for large European organizations, moving legacy on-prem systems into multi-account AWS environments.",
     points: [
       "Built the project's IaC and deployment foundation: a Terraform bootstrap module for S3/KMS remote state and IAM, plus GitHub Actions pipelines using OIDC authentication to plan and apply infrastructure changes across environments.",
       "Write Python services that replace legacy batch workloads, running them serverless on Lambda with S3 and RDS SQL Server, deployed through the same CI/CD pipelines.",
